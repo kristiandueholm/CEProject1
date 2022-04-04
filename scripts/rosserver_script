@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Script for server part
+
+echo "Going to directory
+cd ~/catkin_ws2 && catkin_make
+
+echo "Echoing"
+echo "source ~/catkin_ws2/devel/setup.bash" >> ~/.bashrc
+echo "export TURTLEBOT3_MODEL=burger" >> ~/.bashrc
+
+echo "Source bash"
+source ~/.bashrc
+
+echo "Launching server"
+roslaunchturtlebot3_bringup turtlebot3_robot.launch
