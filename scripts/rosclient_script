@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Script for obstacle part
-
-source ~/.bashrc
-roslaunchturtlebot3_example turtlebot3_obstacle.launch
