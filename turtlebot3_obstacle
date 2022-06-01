@@ -1,0 +1,386 @@
+#!/usr/bin/env python
+#################################################################################
+# Copyright 2018 ROBOTIS CO., LTD.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#################################################################################
+
+# Authors: Gilbert #
+
+import rospy
+from sensor_msgs.msg import LaserScan
+from geometry_msgs.msg import Twist
+
+# Constats for maximum speed according to specifications
+# The linear speed is in m/s, our motors were attached to the wrong wheels hence minus velocity is forward direction
+# Angular speed is in rad/s.
+MAX_LINEAR_VELOCITY = 0.22
+MAX_ANGULAR_SPEED = 2.84
+
+# radius of robot in meters, according to specifications
+ROBOT_RADIUS = 0.105
+
+# other useful constants we will use
+# Inaccuracies from the lidar depends on distance so we just have a rough one for all
+LIDAR_ERROR = 0.05
+
+
+# constants for turning / stopping
+TURN_DISTANCE = 0.30 + LIDAR_ERROR
+FAR_TURN_DISTANCE = 0.40 + LIDAR_ERROR
+STOP_DISTANCE = ROBOT_RADIUS + LIDAR_ERROR + 0.05
+
+
+class Obstacle():
+
+    def __init__(self):
+        """
+        Constructor: Sets up publisher node and starts robot
+        """
+        self._cmd_pub = rospy.Publisher('cmd_vel', Twist, queue_size=1)
+        self.obstacle()
+
+    def get_scan(self):
+        """
+        INPUT: The instance of the object
+        RETURN: An array of tuples with information about distances (m) to obstacles in different directions
+                0th index is to the left [15 to 60 degrees]
+                1st and 2nd index is the front [-15 to 15 degrees]
+                3rd index is right [-15 to -60 degrees]
+                4th index is front left [15 to 23 degrees]
+                5th index is front right [-15 to -23 degrees]
+        """
+        scan = rospy.wait_for_message('scan', LaserScan)
+
+        # Variable to be returned.
+        scan_filter = []
+
+        # LiDAR scans specified ranges.
+        front_lidar_samples_low = scan.ranges[0:15]
+        front_lidar_samples_high = scan.ranges[345:360]
+        left_lidar_samples = scan.ranges[20:60]
+        right_lidar_samples = scan.ranges[305:345]
+        front_right_lidar_samples = scan.ranges[337:345]
+        front_left_lidar_samples = scan.ranges[15:23]
+
+        # Append collection of measurements to a list to be returned.
+        scan_filter.append(left_lidar_samples)
+        scan_filter.append(front_lidar_samples_low)
+        scan_filter.append(front_lidar_samples_high)
+        scan_filter.append(right_lidar_samples)
+        scan_filter.append(front_left_lidar_samples)
+        scan_filter.append(front_right_lidar_samples)
+
+        return scan_filter
+
+    def obstacle(self):
+        twist = Twist()
+
+        def calculate_speed(dist):
+            """
+            INPUT: Distance to obstacle from lidar in meter
+            RETURN: Calculated linear (m/s) and angular speed (rad/s)
+
+            The specific equations were discovered empirically using data regression analysis
+            """
+            ang = 0.1876 * dist ** (-0.7268) * MAX_ANGULAR_SPEED
+            lin = 5.834 * dist ** 1.465 * MAX_LINEAR_VELOCITY
+            return lin, ang
+
+        def calculate_speed_blind(dist):
+            """
+            INPUT: Distance to obstacle from lidar in meter
+            RETURN: Calculated linear and angular speed in m/s and rad/s respectively
+                    for the blind angle case
+
+            The specific equations were discovered empirically using data regression analysis"
+            """
+            ang = 0.223 * dist ** (-0.6309) * MAX_ANGULAR_SPEED
+            lin = 9.169 * dist ** 2.418 * MAX_LINEAR_VELOCITY
+            return lin, ang
+
+        def set_speed(dir, lin=0, ang=0):
+            """
+            INPUT: direction to turn, linear speed (m/s), angular speed (rad/s).
+                   dir takes "LEFT", "RIGHT" and "STRAIGHT"
+                   linear and angular speed defaults to 0 if nothing is passed.
+            RETURN: Nothing. Only publishes a new message with desired speeds
+                    to a topic that is connected to another subscriber node that
+                    controls the velocity of the robot.
+            """
+            if(dir == "STRAIGHT"):
+                twist.angular.z = 0
+            elif(dir == "LEFT"):
+                twist.angular.z = ang
+            elif(dir == "RIGHT"):
+                twist.angular.z = -ang
+
+            twist.linear.x = lin
+            self._cmd_pub.publish(twist)
+
+        def sanitize(array):
+            """
+            INPUT: Takes an array of tuples (standard lidar reading output)
+            OUTPUT: An array without tuple-representation where all 0 readings are changed to 3.5m
+            """
+            arr = list(array)
+            arr = [x if x != 0 else 3.5 for x in arr]
+            return arr
+
+        def update_sensor():
+            """
+            INPUT: NONE
+            RETURN: A dictionary with distances (m) to obstacles in different directions
+                                    keys
+                        left        [15 to 60]
+                        right       [-15 to -60]
+                        front       [-15 to 15]
+                        front_left  [15 to 23]
+                        front_right [-15 to -23]
+
+            HOW: For each direction we take the average of the smallest half of the readings and use that
+                 as the value of the dictionary. 
+            """
+
+            # Get readings from lidar
+            lidar_distances = self.get_scan()
+
+            # Store readings in directions
+            left = lidar_distances[0]
+            front = lidar_distances[1] + lidar_distances[2]
+            right = lidar_distances[3]
+            front_left = lidar_distances[4]
+            front_right = lidar_distances[5]
+
+            # Store readings in different directions in array
+            dir = [left, right, front, front_left,
+                   front_right]
+
+            # process array of directions readings
+            for i in range(len(dir)):
+
+                # remove excess 0.0 readings.
+                san = sanitize(dir[i])
+
+                # take the average of the smallest half of the measured distances in each direction
+                # and use this aggregate as distance to that side
+                n = len(san)/2
+                avg = 0
+                for _ in range(n):
+                    avg += min(san)
+                    san.remove(min(san))
+                avg /= n
+                dir[i] = avg
+
+            # create and store in dictionary
+            distances = {
+                "left": dir[0],
+                "right": dir[1],
+                "front": dir[2],
+                "front_left": dir[3],
+                "front_right": dir[4]
+            }
+
+            return distances
+
+        def closeObstacle(distances):
+            """
+            INPUT: A dictionary with distances (m) to obstacles in different directions as values
+                        keys
+            left        [15 to 60]
+            right       [-15 to -60]
+            front       [-15 to 15]
+            front_left  [15 to 23]
+            front_right [-15 to -23]
+
+            RETURN: True if robot encountered an obstacle within STOP_DISTANCE else false. 
+
+            Robot also tries to solve this case/problem on its own        
+            """
+
+            # Variable to be returned:
+            encountered_obstacle = False
+
+            # Cache dictionary lookups
+            front_distance = distances["front"]
+            right_distance = distances["right"]
+            left_distance = distances["left"]
+            front_right_distance = distances["front_right"]
+            front_left_distance = distances["front_left"]
+
+            # we used cache readings for checking the initial if-condition.
+            # However, we do not use cache during the execution of the while loop as value is only used one time anyway.
+
+            # Close obstacle to the front and right
+            if(front_distance < STOP_DISTANCE and right_distance < STOP_DISTANCE):
+                while(distances["front"] < STOP_DISTANCE + 0.05):
+                    rospy.loginfo("CLOSE OBSTACLE:  FRONT AND RIGHT")
+                    set_speed("LEFT", ang=MAX_ANGULAR_SPEED * 0.8)
+                    distances = update_sensor()
+
+                encountered_obstacle = True
+
+            # Close obstacle to the front and left
+            elif(front_distance < STOP_DISTANCE + 0.03 and left_distance < STOP_DISTANCE):
+                while(distances["front"] < STOP_DISTANCE + 0.05):
+                    rospy.loginfo("CLOSE OBSTACLE: FRONT AND LEFT")
+                    set_speed("RIGHT", ang=MAX_ANGULAR_SPEED * 0.8)
+                    distances = update_sensor()
+                encountered_obstacle = True
+
+            # Close obstacle infront
+            elif(front_distance < STOP_DISTANCE + 0.03):
+                if(right_distance < left_distance):
+                    while(distances["front"] < STOP_DISTANCE + 0.05):
+                        rospy.loginfo("CLOSE OBSTACLE: FRONT")
+                        set_speed("LEFT", ang=MAX_ANGULAR_SPEED * 0.8)
+                        distances = update_sensor()
+                else:
+                    while(distances["front"] < STOP_DISTANCE + 0.05):
+                        rospy.loginfo("CLOSE OBSTACLE: FRONT")
+                        set_speed("RIGHT", ang=MAX_ANGULAR_SPEED * 0.8)
+                        distances = update_sensor()
+                encountered_obstacle = True
+
+            # Close obstacle to the front right or front left
+            elif(front_right_distance < STOP_DISTANCE or front_left_distance < STOP_DISTANCE):
+                if(front_right_distance < front_left_distance):
+                    while(distances["front_right"] < STOP_DISTANCE + 0.05 and distances["front"] < STOP_DISTANCE + 0.05):
+                        rospy.loginfo("CLOSE OBSTACLE: FRONT_RIGHT")
+                        set_speed("LEFT", ang=MAX_ANGULAR_SPEED * 0.8)
+                        distances = update_sensor()
+
+                else:
+                    while(distances["front_left"] < STOP_DISTANCE + 0.05 and distances["front"] < STOP_DISTANCE + 0.05):
+                        rospy.loginfo("CLOSE OBSTACLE: FRONT_LEFT")
+                        set_speed("RIGHT", ang=MAX_ANGULAR_SPEED * 0.8)
+                        distances = update_sensor()
+                encountered_obstacle = True
+
+            # Close obstacle to the right or left
+            elif(right_distance < STOP_DISTANCE or left_distance < STOP_DISTANCE):
+                if(right_distance < left_distance):
+                    while(distances["right"] < STOP_DISTANCE + 0.05 and distances["front"] < STOP_DISTANCE + 0.05):
+                        rospy.loginfo("CLOSE OBSTACLE:  RIGHT")
+                        set_speed("LEFT", ang=MAX_ANGULAR_SPEED * 0.8)
+                        distances = update_sensor()
+
+                else:
+                    while(distances["left"] < STOP_DISTANCE + 0.05 and distances["front"] < STOP_DISTANCE + 0.05):
+                        rospy.loginfo("CLOSE OBSTACLE: LEFT")
+                        set_speed("RIGHT", ang=MAX_ANGULAR_SPEED * 0.8)
+                        distances = update_sensor()
+                encountered_obstacle = True
+
+            return encountered_obstacle
+
+        def farObstacle(distances):
+            """
+            INPUT: A dictionary with distances (m) to obstacles in different directions as values
+                        keys
+            left        [15 to 60]
+            right       [-15 to -60]
+            front       [-15 to 15]
+            front_left  [15 to 23]
+            front_right [-15 to -23]
+
+            RETURN: True if robot encountered a far obstacle else false. 
+            Robot also tries to solve this case/problem on its own       
+            """
+
+            # Variable to be returned:
+            encounteredObstacle = False
+
+            # Cache dictionary lookups
+            front_distance = distances["front"]
+            right_distance = distances["right"]
+            left_distance = distances["left"]
+            front_right_distance = distances["front_right"]
+            front_left_distance = distances["front_left"]
+
+            # Far obstacle infront
+            if(front_distance < TURN_DISTANCE):
+                rospy.loginfo("INFRONT")
+                if(right_distance < left_distance):
+                    lin, ang = calculate_speed(front_distance)
+                    set_speed("LEFT", lin, ang)
+                else:
+                    lin, ang = calculate_speed(front_distance)
+                    set_speed("RIGHT", lin, ang)
+                encounteredObstacle = True
+
+            # Obstacle front right AND front left
+            elif(front_right_distance < TURN_DISTANCE and front_left_distance < TURN_DISTANCE):
+                rospy.loginfo("Both blindspots")
+                if(front_right_distance < front_left_distance):
+                    lin, ang = calculate_speed(front_right_distance)
+                    set_speed("LEFT", lin, ang)
+                else:
+                    lin, ang = calculate_speed(front_left_distance)
+                    set_speed("RIGHT", lin, ang)
+                encounteredObstacle = True
+
+            # Obstacle to the right or left
+            elif(right_distance < TURN_DISTANCE or left_distance < TURN_DISTANCE):
+                rospy.loginfo("Obstacle to either side")
+                if(right_distance < left_distance):
+                    lin, ang = calculate_speed(right_distance)
+                    set_speed("LEFT", lin, ang)
+                else:
+                    lin, ang = calculate_speed(left_distance)
+                    set_speed("RIGHT", lin, ang)
+                encounteredObstacle = True
+
+            # Obstacle to the front right or front left. Notice that we use FAR_TURN_DISTANCE not TURN_DISTANCE
+            elif(front_right_distance < FAR_TURN_DISTANCE or front_left_distance < FAR_TURN_DISTANCE):
+                rospy.loginfo("Either blindspot")
+                if(front_right_distance < front_left_distance):
+                    lin, ang = calculate_speed_blind(front_right_distance)
+                    set_speed("LEFT", lin, ang)
+                else:
+                    lin, ang = calculate_speed_blind(front_left_distance)
+                    set_speed("RIGHT", lin, ang)
+                encounteredObstacle = True
+
+            return encounteredObstacle
+
+        # control loop
+        while not rospy.is_shutdown():
+
+            # Get distances to obstacles from sensor in each direction
+            distances = update_sensor()
+
+            # Deal with any close obstacles
+            if(closeObstacle(distances)):
+                continue
+
+            # Deal with any far obstacles
+            if(farObstacle(distances)):
+                continue
+
+            # go straight at full speed
+            else:
+                rospy.loginfo("No obstacles, go straight")
+                set_speed("STRAIGHT", lin=MAX_LINEAR_VELOCITY)
+
+
+def main():
+    rospy.init_node('turtlebot3_obstacle')
+    try:
+        obstacle = Obstacle()
+    except rospy.ROSInterruptException:
+        pass
+
+
+if __name__ == '__main__':
+    main()
