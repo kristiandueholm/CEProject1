@@ -296,7 +296,8 @@ class Obstacle():
             front_right [-15 to -23]
 
             RETURN: True if robot encountered a far obstacle else false. 
-            Robot also tries to solve this case/problem on its own       
+
+            Robot also adjusts its velocity accordingly       
             """
 
             # Variable to be returned:
