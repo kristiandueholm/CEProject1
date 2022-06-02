@@ -1,0 +1,272 @@
+process[turtlebot3_obstacle-1]: started with pid [4105]
+[INFO] [1652692424.334462]: Obstacle to either side
+[INFO] [1652692424.532722]: Obstacle to either side
+[INFO] [1652692424.732926]: Obstacle to either side
+[INFO] [1652692424.933426]: Obstacle to either side
+[INFO] [1652692425.133814]: Obstacle to either side
+[INFO] [1652692425.335226]: Obstacle to either side
+[INFO] [1652692425.535373]: Obstacle to either side
+[INFO] [1652692425.734826]: Obstacle to either side
+[INFO] [1652692425.936371]: Obstacle to either side
+[INFO] [1652692426.135828]: Obstacle to either side
+[INFO] [1652692426.744345]: Obstacle to either side
+[INFO] [1652692426.948506]: INFRONT
+[INFO] [1652692427.137623]: Obstacle to either side
+[INFO] [1652692427.538746]: Obstacle to either side
+[INFO] [1652692427.747849]: Obstacle to either side
+[INFO] [1652692427.940033]: Obstacle to either side
+[INFO] [1652692428.343310]: Obstacle to either side
+[INFO] [1652692428.746596]: Obstacle to either side
+[INFO] [1652692429.150256]: Obstacle to either side
+[INFO] [1652692429.551396]: Obstacle to either side
+[INFO] [1652692430.350102]: Obstacle to either side
+[INFO] [1652692430.559944]: Obstacle to either side
+[INFO] [1652692430.954112]: Obstacle to either side
+[INFO] [1652692431.155649]: Obstacle to either side
+[INFO] [1652692431.359537]: Obstacle to either side
+[INFO] [1652692431.561190]: Obstacle to either side
+[INFO] [1652692432.165088]: Obstacle to either side
+[INFO] [1652692432.354633]: Obstacle to either side
+[INFO] [1652692432.555166]: Obstacle to either side
+[INFO] [1652692432.764311]: Obstacle to either side
+[INFO] [1652692432.963826]: Obstacle to either side
+[INFO] [1652692433.559628]: Obstacle to either side
+[INFO] [1652692433.758558]: Obstacle to either side
+[INFO] [1652692433.967714]: Obstacle to either side
+[INFO] [1652692434.359539]: Obstacle to either side
+[INFO] [1652692434.569773]: Obstacle to either side
+[INFO] [1652692434.768507]: Obstacle to either side
+[INFO] [1652692435.162424]: Obstacle to either side
+[INFO] [1652692435.372665]: Either blindspot
+[INFO] [1652692435.572585]: Obstacle to either side
+[INFO] [1652692435.771882]: Obstacle to either side
+[INFO] [1652692435.972860]: Obstacle to either side
+[INFO] [1652692436.171447]: Obstacle to either side
+[INFO] [1652692436.370406]: Obstacle to either side
+[INFO] [1652692436.568458]: Obstacle to either side
+[INFO] [1652692436.767035]: Obstacle to either side
+[INFO] [1652692436.975541]: Obstacle to either side
+[INFO] [1652692437.580417]: Obstacle to either side
+[INFO] [1652692437.974823]: Obstacle to either side
+[INFO] [1652692438.172772]: Obstacle to either side
+[INFO] [1652692438.383441]: Either blindspot
+[INFO] [1652692438.580701]: Either blindspot
+[INFO] [1652692438.779046]: Obstacle to either side
+[INFO] [1652692438.977691]: Obstacle to either side
+[INFO] [1652692439.183169]: Obstacle to either side
+[INFO] [1652692439.383802]: Obstacle to either side
+[INFO] [1652692439.585977]: Obstacle to either side
+[INFO] [1652692441.794850]: INFRONT
+[INFO] [1652692441.994799]: INFRONT
+[INFO] [1652692442.195685]: PRIO FRONT
+[INFO] [1652692442.393870]: PRIO FRONT
+[INFO] [1652692444.200642]: INFRONT
+[INFO] [1652692444.401088]: INFRONT
+[INFO] [1652692444.602750]: INFRONT
+[INFO] [1652692444.804300]: INFRONT
+[INFO] [1652692445.196228]: PRIO OBSTACLE FRONT AND RIGHT
+[INFO] [1652692447.209897]: Obstacle to either side
+[INFO] [1652692447.409209]: Obstacle to either side
+[INFO] [1652692447.809368]: Obstacle to either side
+[INFO] [1652692448.007753]: Obstacle to either side
+[INFO] [1652692448.814264]: INFRONT
+[INFO] [1652692449.016932]: Obstacle to either side
+[INFO] [1652692455.629772]: Obstacle to either side
+[INFO] [1652692455.830645]: INFRONT
+[INFO] [1652692456.032423]: Obstacle to either side
+[INFO] [1652692456.236254]: Obstacle to either side
+[INFO] [1652692456.841573]: Obstacle to either side
+[INFO] [1652692457.040732]: Obstacle to either side
+[INFO] [1652692457.244827]: Obstacle to either side
+[INFO] [1652692457.445746]: Obstacle to either side
+[INFO] [1652692458.244209]: Obstacle to either side
+[INFO] [1652692458.647641]: Obstacle to either side
+[INFO] [1652692459.050993]: Obstacle to either side
+[INFO] [1652692459.250701]: Obstacle to either side
+[INFO] [1652692459.451163]: Obstacle to either side
+[INFO] [1652692459.651981]: Obstacle to either side
+[INFO] [1652692459.852586]: INFRONT
+[INFO] [1652692460.053296]: INFRONT
+[INFO] [1652692460.252879]: Obstacle to either side
+[INFO] [1652692460.451982]: Obstacle to either side
+[INFO] [1652692460.654936]: Obstacle to either side
+[INFO] [1652692460.855589]: Obstacle to either side
+[INFO] [1652692461.054890]: Obstacle to either side
+[INFO] [1652692461.254085]: INFRONT
+[INFO] [1652692461.453842]: Obstacle to either side
+[INFO] [1652692461.856763]: Obstacle to either side
+[INFO] [1652692462.454747]: Obstacle to either side
+[INFO] [1652692462.663723]: Obstacle to either side
+[INFO] [1652692462.864127]: Obstacle to either side
+[INFO] [1652692463.064186]: Obstacle to either side
+[INFO] [1652692463.668856]: Obstacle to either side
+[INFO] [1652692464.267258]: Obstacle to either side
+[INFO] [1652692464.468480]: Obstacle to either side
+[INFO] [1652692464.870009]: Obstacle to either side
+[INFO] [1652692465.068437]: Obstacle to either side
+[INFO] [1652692465.471904]: Obstacle to either side
+[INFO] [1652692465.873413]: Obstacle to either side
+[INFO] [1652692466.075790]: Obstacle to either side
+[INFO] [1652692466.274870]: Obstacle to either side
+[INFO] [1652692466.677285]: Obstacle to either side
+[INFO] [1652692467.080108]: Obstacle to either side
+[INFO] [1652692467.487349]: Obstacle to either side
+[INFO] [1652692467.878614]: Obstacle to either side
+[INFO] [1652692468.281754]: Obstacle to either side
+[INFO] [1652692468.685150]: Either blindspot
+[INFO] [1652692469.078007]: INFRONT
+[INFO] [1652692469.277554]: INFRONT
+[INFO] [1652692469.486876]: PRIO LEFT
+[INFO] [1652692469.685780]: PRIO LEFT
+[INFO] [1652692470.290038]: INFRONT
+[INFO] [1652692470.691618]: INFRONT
+[INFO] [1652692471.085911]: PRIO FRONT
+[INFO] [1652692471.285750]: PRIO FRONT
+[INFO] [1652692471.486858]: PRIO FRONT
+[INFO] [1652692471.687846]: PRIO FRONT
+[INFO] [1652692472.292121]: Obstacle to either side
+[INFO] [1652692472.891456]: Obstacle to either side
+[INFO] [1652692473.100998]: Obstacle to either side
+[INFO] [1652692473.494338]: Obstacle to either side
+[INFO] [1652692473.899121]: Obstacle to either side
+[INFO] [1652692474.100727]: Obstacle to either side
+[INFO] [1652692474.298950]: Obstacle to either side
+[INFO] [1652692474.497760]: Obstacle to either side
+[INFO] [1652692474.700900]: Obstacle to either side
+[INFO] [1652692474.902176]: Obstacle to either side
+[INFO] [1652692475.101602]: Obstacle to either side
+[INFO] [1652692475.302872]: Obstacle to either side
+[INFO] [1652692475.501887]: Obstacle to either side
+[INFO] [1652692475.701049]: Obstacle to either side
+[INFO] [1652692475.901101]: Obstacle to either side
+[INFO] [1652692476.101694]: INFRONT
+[INFO] [1652692476.303004]: INFRONT
+[INFO] [1652692476.502040]: INFRONT
+[INFO] [1652692476.701663]: INFRONT
+[INFO] [1652692476.901756]: INFRONT
+[INFO] [1652692478.106762]: Obstacle to either side
+[INFO] [1652692478.307313]: Obstacle to either side
+[INFO] [1652692478.506324]: Obstacle to either side
+[INFO] [1652692478.716977]: Obstacle to either side
+[INFO] [1652692479.109166]: Obstacle to either side
+[INFO] [1652692479.310421]: Obstacle to either side
+[INFO] [1652692479.521649]: Obstacle to either side
+[INFO] [1652692479.914708]: Obstacle to either side
+[INFO] [1652692480.116016]: Obstacle to either side
+[INFO] [1652692480.319438]: Obstacle to either side
+[INFO] [1652692480.720975]: Obstacle to either side
+[INFO] [1652692480.921796]: Obstacle to either side
+[INFO] [1652692481.121238]: Obstacle to either side
+[INFO] [1652692481.320429]: Obstacle to either side
+[INFO] [1652692481.521581]: Obstacle to either side
+[INFO] [1652692482.521252]: INFRONT
+[INFO] [1652692484.332496]: PRIO FRONT AND LEFT
+[INFO] [1652692486.342868]: PRIO FRONT AND LEFT
+[INFO] [1652692488.360549]: PRIO FRONT AND LEFT
+[INFO] [1652692488.963657]: PRIO FRONT AND LEFT
+[INFO] [1652692490.367579]: Either blindspot
+[INFO] [1652692490.964000]: INFRONT
+[INFO] [1652692491.567936]: Obstacle to either side
+[INFO] [1652692491.768920]: Obstacle to either side
+[INFO] [1652692491.968524]: Obstacle to either side
+[INFO] [1652692492.167258]: Obstacle to either side
+[INFO] [1652692492.366556]: Obstacle to either side
+[INFO] [1652692492.772162]: Obstacle to either side
+[INFO] [1652692492.972148]: Obstacle to either side
+[INFO] [1652692493.376964]: Obstacle to either side
+[INFO] [1652692493.565011]: Obstacle to either side
+[INFO] [1652692494.176179]: Obstacle to either side
+[INFO] [1652692496.984301]: Either blindspot
+[INFO] [1652692497.175101]: INFRONT
+[INFO] [1652692497.377086]: Either blindspot
+[INFO] [1652692497.582440]: Either blindspot
+[INFO] [1652692498.177252]: Obstacle to either side
+[INFO] [1652692498.383111]: PRIO FRONT
+[INFO] [1652692500.790398]: Obstacle to either side
+[INFO] [1652692500.990531]: Obstacle to either side
+[INFO] [1652692501.189036]: Obstacle to either side
+[INFO] [1652692501.398966]: Obstacle to either side
+[INFO] [1652692501.591399]: Obstacle to either side
+[INFO] [1652692501.800139]: Obstacle to either side
+[INFO] [1652692502.001730]: Obstacle to either side
+[INFO] [1652692502.194455]: Obstacle to either side
+[INFO] [1652692502.397035]: Obstacle to either side
+[INFO] [1652692502.600622]: Obstacle to either side
+[INFO] [1652692503.005633]: Obstacle to either side
+[INFO] [1652692506.411919]: PRIO FRONT_LEFT
+[INFO] [1652692507.015938]: Obstacle to either side
+[INFO] [1652692507.215023]: Obstacle to either side
+[INFO] [1652692507.418456]: INFRONT
+[INFO] [1652692507.618042]: INFRONT
+[INFO] [1652692507.817388]: INFRONT
+[INFO] [1652692508.017797]: INFRONT
+[INFO] [1652692509.423758]: Obstacle to either side
+[INFO] [1652692509.826297]: Obstacle to either side
+[INFO] [1652692510.026676]: Obstacle to either side
+[INFO] [1652692510.225027]: Obstacle to either side
+[INFO] [1652692510.424531]: Obstacle to either side
+[INFO] [1652692510.627808]: Obstacle to either side
+[INFO] [1652692510.827946]: Obstacle to either side
+[INFO] [1652692511.027912]: Obstacle to either side
+[INFO] [1652692511.633776]: Either blindspot
+[INFO] [1652692512.028431]: Obstacle to either side
+[INFO] [1652692512.228077]: Obstacle to either side
+[INFO] [1652692512.430219]: Obstacle to either side
+[INFO] [1652692512.631513]: Obstacle to either side
+[INFO] [1652692512.833456]: Obstacle to either side
+[INFO] [1652692513.035850]: Obstacle to either side
+[INFO] [1652692513.439579]: Obstacle to either side
+[INFO] [1652692513.641896]: Obstacle to either side
+[INFO] [1652692513.843409]: Obstacle to either side
+[INFO] [1652692514.041897]: Obstacle to either side
+[INFO] [1652692514.243421]: INFRONT
+[INFO] [1652692514.444178]: INFRONT
+[INFO] [1652692514.645807]: INFRONT
+[INFO] [1652692514.838884]: INFRONT
+[INFO] [1652692515.038185]: INFRONT
+[INFO] [1652692515.247496]: PRIO LEFT
+[INFO] [1652692515.446761]: PRIO LEFT
+[INFO] [1652692516.046987]: PRIO FRONT AND LEFT
+[INFO] [1652692516.448798]: Obstacle to either side
+[INFO] [1652692516.648479]: Obstacle to either side
+[INFO] [1652692517.246282]: Obstacle to either side
+[INFO] [1652692517.456339]: Obstacle to either side
+[INFO] [1652692517.646768]: Obstacle to either side
+[INFO] [1652692517.850631]: Obstacle to either side
+[INFO] [1652692518.059870]: Obstacle to either side
+[INFO] [1652692518.450912]: Obstacle to either side
+[INFO] [1652692518.653068]: Obstacle to either side
+[INFO] [1652692519.253638]: Obstacle to either side
+[INFO] [1652692519.453437]: INFRONT
+[INFO] [1652692519.662248]: INFRONT
+[INFO] [1652692519.862181]: INFRONT
+[INFO] [1652692520.061073]: INFRONT
+[INFO] [1652692520.260105]: PRIO LEFT
+[INFO] [1652692520.460903]: PRIO LEFT
+[INFO] [1652692520.865442]: Obstacle to either side
+[INFO] [1652692521.064592]: Obstacle to either side
+[INFO] [1652692521.263634]: Obstacle to either side
+[INFO] [1652692521.463569]: INFRONT
+[INFO] [1652692521.662556]: INFRONT
+[INFO] [1652692521.863798]: INFRONT
+[INFO] [1652692524.475895]: PRIO OBSTACLE FRONT AND RIGHT
+[INFO] [1652692524.878112]: PRIO OBSTACLE FRONT AND RIGHT
+[INFO] [1652692525.077846]: PRIO OBSTACLE FRONT AND RIGHT
+[INFO] [1652692527.480896]: INFRONT
+[INFO] [1652692527.682336]: INFRONT
+[INFO] [1652692527.886887]: INFRONT
+[INFO] [1652692528.086836]: INFRONT
+[INFO] [1652692531.495558]: INFRONT
+[INFO] [1652692531.696541]: INFRONT
+[INFO] [1652692531.899021]: PRIO FRONT
+[INFO] [1652692532.097738]: PRIO FRONT
+[INFO] [1652692532.295802]: PRIO FRONT
+[INFO] [1652692532.504868]: PRIO FRONT
+[INFO] [1652692536.115558]: Either blindspot
+[INFO] [1652692536.518684]: Either blindspot
+[INFO] [1652692536.718308]: INFRONT
+[INFO] [1652692536.918321]: INFRONT
+[INFO] [1652692537.118457]: INFRONT
+[INFO] [1652692538.318781]: Obstacle to either side
+[INFO] [1652692540.131137]: Either blindspot
+^C[INFO] [1652692540.330585]: Either blindspot
