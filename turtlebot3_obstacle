@@ -17,6 +17,7 @@
 
 # Authors: Gilbert #
 
+from tokenize import Number
 import rospy
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
@@ -370,7 +371,6 @@ class Obstacle():
 
             # go straight at full speed
             else:
-                rospy.loginfo("No obstacles, go straight")
                 set_speed("STRAIGHT", lin=MAX_LINEAR_VELOCITY)
 
 
